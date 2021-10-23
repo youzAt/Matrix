@@ -1,0 +1,3 @@
+/home/youzat/Desktop/Tamrins/Matrix/build/CMakeFiles/rebuild_cache.dir
+/home/youzat/Desktop/Tamrins/Matrix/build/CMakeFiles/edit_cache.dir
+/home/youzat/Desktop/Tamrins/Matrix/build/CMakeFiles/app.dir
