@@ -6,7 +6,11 @@
 
 #IncludeRegexTransform: 
 
+../include/funcs.hpp
+
 /home/youzat/Desktop/Tamrins/Matrix/src/main.cpp
 iostream
 -
+funcs.hpp
+/home/youzat/Desktop/Tamrins/Matrix/src/funcs.hpp
 
