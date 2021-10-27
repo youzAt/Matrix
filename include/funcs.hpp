@@ -344,7 +344,7 @@ bool is_skew_symmetric(matrixS matrix)
 		{
 			for (int j = 0; j < matrix.size; j++)
 			{
-				if (matrix.mat_n[i][j] != (-1 * matrix.mat_n[j][i]))
+				if (i != j && (matrix.mat_n[i][j] != (-1 * matrix.mat_n[j][i])))
 				{
 					skew_symmetric = false;
 					break;
@@ -359,20 +359,23 @@ bool is_skew_symmetric(matrixS matrix)
 		{
 			for (int j = 0; j < matrix.size; j++)
 			{
-				if (islower(matrix.mat_c[i][j]))
+				if (i != j)
 				{
-					if (toupper(matrix.mat_c[i][j]) != matrix.mat_c[j][i])
+					if (islower(matrix.mat_c[i][j]))
 					{
-						skew_symmetric = false;
-						break;
+						if (toupper(matrix.mat_c[i][j]) != matrix.mat_c[j][i])
+						{
+							skew_symmetric = false;
+							break;
+						}
 					}
-				}
-				else
-				{
-					if (tolower(matrix.mat_c[i][j]) != matrix.mat_c[j][i])
+					else
 					{
-						skew_symmetric = false;
-						break;
+						if (tolower(matrix.mat_c[i][j]) != matrix.mat_c[j][i])
+						{
+							skew_symmetric = false;
+							break;
+						}
 					}
 				}
 			}
@@ -385,7 +388,7 @@ bool is_skew_symmetric(matrixS matrix)
 		{
 			for (int j = 0; j < matrix.size; j++)
 			{
-				if (!is_reverse(matrix.mat_s[i][j], matrix.mat_s[j][i]))
+				if (i != j && !is_reverse(matrix.mat_s[i][j], matrix.mat_s[j][i]))
 				{
 					skew_symmetric = false;
 					break;
@@ -398,10 +401,5 @@ bool is_skew_symmetric(matrixS matrix)
 
 	return skew_symmetric;
 }
-
-
-
-
-
 
 #endif // FUNCS_HPP
