@@ -402,4 +402,27 @@ bool is_skew_symmetric(matrixS matrix)
 	return skew_symmetric;
 }
 
+//function that checks if a matrix is normal symmetric or skew symmetric or both or none
+int is_symmetric(matrixS matrix)
+{
+	bool normal = is_normal_symmetric(matrix);
+	bool skew = is_skew_symmetric(matrix);
+
+	if (!normal && !skew)
+	{
+		return 0; // neither normal nor skew
+	}
+	else if (normal && !skew)
+	{
+		return 1; // just normal
+	}
+	else if (!normal && skew)
+	{
+		return 2; // just skew
+	}
+	else
+	{
+		return 3; // both normal and skew
+	}
+}
 #endif // FUNCS_HPP
