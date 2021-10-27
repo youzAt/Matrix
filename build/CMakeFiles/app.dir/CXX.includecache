@@ -7,10 +7,20 @@
 #IncludeRegexTransform: 
 
 ../include/funcs.hpp
+matrix_struct.hpp
+../include/matrix_struct.hpp
+
+../include/matrix_struct.hpp
+string
+-
 
 /home/youzat/Desktop/Tamrins/Matrix/src/main.cpp
 iostream
 -
 funcs.hpp
 /home/youzat/Desktop/Tamrins/Matrix/src/funcs.hpp
+matrix_struct.hpp
+/home/youzat/Desktop/Tamrins/Matrix/src/matrix_struct.hpp
+vector
+-
 

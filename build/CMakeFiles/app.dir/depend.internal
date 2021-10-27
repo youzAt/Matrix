@@ -3,4 +3,5 @@
 
 CMakeFiles/app.dir/src/main.cpp.o
  ../include/funcs.hpp
+ ../include/matrix_struct.hpp
  /home/youzat/Desktop/Tamrins/Matrix/src/main.cpp
