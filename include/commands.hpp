@@ -1,6 +1,7 @@
 #ifndef COMMANDS_HPP
 #define COMMANDS_HPP
 #include <iostream>
+#include<vector>
 using namespace std;
 
 void show_commands()
@@ -23,29 +24,61 @@ void show_commands()
 	cout << "--------------------------------------" << endl;
 }
 
-void menu()
+string split_command(string &commandLine)
 {
-	cout << "Welcome To This Program!!! " << endl;
-	string command_line = " ";
-
-	while (command_line != "exit")
+	string command = "";
+	static string temp;
+	if (temp != commandLine)
 	{
-		cout << "Enter your command or \"help\" (or exit to end the program)..." << endl;
-		cin >> command_line;
-		if (command_line == "help")
+		for (int i = 0; i < commandLine.size(); i++)
 		{
-			show_commands();
-		}
-		else if(command_line == "add")
-		{
-			cin >> command_line;
-			if (command_line == "matrix")
+			if (commandLine[i] == ' ')
 			{
-				cout << "hellooooo" << endl;
+				commandLine = commandLine.substr(i + 1);
+				break;
 			}
 			else
 			{
-				cout << "Invalid command !!" << endl;
+				command = command + commandLine[i];
+			}
+		}
+		temp = command;
+		return command;
+	}
+	commandLine = "";
+	command = "";
+	return command;
+}
+
+void add_matrix(string & commandsLine)
+{
+
+}
+
+void menu(vector<matrixS> & matrixV)
+{
+	string command_line = " ";					   //string that keeps the command line
+	cout << "Welcome To This Program!!! " << endl; //welcome message
+
+	while (command_line != "exit") //loop for getting command line or end the program with "exit" command
+	{
+		// ask to enter the command and get the command line from input
+		cout << "Enter your command or \"help\" (or exit to end the program)..." << endl;
+		getline(cin, command_line);
+
+		if (command_line == "help") //show all available commands with "help" command
+		{
+			show_commands();
+		}
+		else if (split_command(command_line) == "add")
+		{
+			if (split_command(command_line) == "matrix")
+			{
+				cout << "yessss" << endl;
+			}
+			else
+			{
+				cout << "Unavalable command!!!" << endl;
 			}
 		}
 	}
