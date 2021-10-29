@@ -7,6 +7,9 @@ using namespace std;
 
 int main(int argc, char const *argv[])
 {
-	menu();
+	vector<matrixS> matrixV;
+	menu(matrixV);
+
+	
 	return 0;
 }
