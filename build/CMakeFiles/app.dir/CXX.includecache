@@ -6,6 +6,10 @@
 
 #IncludeRegexTransform: 
 
+../include/commands.hpp
+iostream
+-
+
 ../include/funcs.hpp
 matrix_struct.hpp
 ../include/matrix_struct.hpp
@@ -21,6 +25,8 @@ funcs.hpp
 /home/youzat/Desktop/Tamrins/Matrix/src/funcs.hpp
 matrix_struct.hpp
 /home/youzat/Desktop/Tamrins/Matrix/src/matrix_struct.hpp
+commands.hpp
+/home/youzat/Desktop/Tamrins/Matrix/src/commands.hpp
 vector
 -
 
