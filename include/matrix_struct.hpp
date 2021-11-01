@@ -6,6 +6,8 @@ struct matrixS
 {
 	std::string name = "";
 	int size = 0;
+	int row;
+	int col;
 	int data_type;
 	float** mat_n = nullptr;
 	char** mat_c = nullptr;
