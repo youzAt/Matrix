@@ -9,6 +9,10 @@
 ../include/commands.hpp
 iostream
 -
+matrix_struct.hpp
+../include/matrix_struct.hpp
+vector
+-
 
 ../include/funcs.hpp
 matrix_struct.hpp
