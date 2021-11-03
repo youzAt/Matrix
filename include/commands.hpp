@@ -582,12 +582,37 @@ void inverse(string &commandLine, vector<matrixS> &matrixV)
 				free_matrix(matrixV[k]);
 				matrixV[k] = temp_matrix;
 			}
+			break;
 		}
 	}
 
 	if (!found)
 	{
 		cout << "matrix with name(" << first_name << ") dosen\'t exist!!!" << endl;
+	}
+}
+
+void delete_matrix(string &commandLine, vector<matrixS> &matrixV)
+{
+	bool found = false;
+	string name = split_command(commandLine);
+
+	for (int i = 0; i < matrixV.size(); i++)
+	{
+		if (matrixV[i].name == name)
+		{
+			found = true;
+			free_matrix(matrixV[i]);
+			matrixV.erase(matrixV.begin() + i);
+			cout << "matrix \"" << name << "\" deleted " << endl;
+
+			break;
+		}
+	}
+
+	if (!found)
+	{
+		cout << "matrix with name(" << name << ") doesn\'t exist!!!" << endl;
 	}
 }
 
@@ -625,6 +650,14 @@ void menu(vector<matrixS> &matrixV)
 		else if (command == "inverse")
 		{
 			inverse(command_line, matrixV);
+		}
+		else if (command == "delete")
+		{
+			delete_matrix(command_line, matrixV);
+		}
+		else if (command == "change")
+		{
+			change_matrix(command_line, matrixV);
 		}
 	}
 
