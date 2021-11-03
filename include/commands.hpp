@@ -165,7 +165,7 @@ void add_matrix(string &commandsLine, vector<matrixS> &matrixV)
 	if (temp_string == "")
 	{
 		temp_matrix.col = temp_matrix.size = temp_matrix.row;
-		cout << temp_matrix.name << "[1][1]: ";
+		cout << temp_matrix.name << "[0][0]: ";
 		cin >> element;
 		if (element == "")
 		{
@@ -185,7 +185,7 @@ void add_matrix(string &commandsLine, vector<matrixS> &matrixV)
 					{
 						continue;
 					}
-					cout << temp_matrix.name << '[' << i + 1 << "][" << j + 1 << "]: ";
+					cout << temp_matrix.name << '[' << i << "][" << j << "]: ";
 					cin >> temp_matrix.mat_n[i][j];
 				}
 			}
@@ -203,7 +203,7 @@ void add_matrix(string &commandsLine, vector<matrixS> &matrixV)
 					{
 						continue;
 					}
-					cout << temp_matrix.name << '[' << i + 1 << "][" << j + 1 << "]: ";
+					cout << temp_matrix.name << '[' << i << "][" << j << "]: ";
 					cin >> temp_matrix.mat_c[i][j];
 				}
 			}
@@ -221,7 +221,7 @@ void add_matrix(string &commandsLine, vector<matrixS> &matrixV)
 					{
 						continue;
 					}
-					cout << temp_matrix.name << '[' << i + 1 << "][" << j + 1 << "]: ";
+					cout << temp_matrix.name << '[' << i << "][" << j << "]: ";
 					cin >> temp_matrix.mat_s[i][j];
 				}
 			}
@@ -321,7 +321,7 @@ void add_matrix(string &commandsLine, vector<matrixS> &matrixV)
 		temp_string = split_command(commandsLine);
 		if (temp_string == "")
 		{
-			cout << temp_matrix.name << "[1][1]: ";
+			cout << temp_matrix.name << "[0][0]: ";
 			cin >> element;
 			if (element == "")
 			{
@@ -341,7 +341,7 @@ void add_matrix(string &commandsLine, vector<matrixS> &matrixV)
 						{
 							continue;
 						}
-						cout << temp_matrix.name << '[' << i + 1 << "][" << j + 1 << "]: ";
+						cout << temp_matrix.name << '[' << i << "][" << j << "]: ";
 						cin >> temp_matrix.mat_n[i][j];
 					}
 				}
@@ -359,7 +359,7 @@ void add_matrix(string &commandsLine, vector<matrixS> &matrixV)
 						{
 							continue;
 						}
-						cout << temp_matrix.name << '[' << i + 1 << "][" << j + 1 << "]: ";
+						cout << temp_matrix.name << '[' << i << "][" << j << "]: ";
 						cin >> temp_matrix.mat_c[i][j];
 					}
 				}
@@ -377,7 +377,7 @@ void add_matrix(string &commandsLine, vector<matrixS> &matrixV)
 						{
 							continue;
 						}
-						cout << temp_matrix.name << '[' << i + 1 << "][" << j + 1 << "]: ";
+						cout << temp_matrix.name << '[' << i << "][" << j << "]: ";
 						cin >> temp_matrix.mat_s[i][j];
 					}
 				}
@@ -536,39 +536,39 @@ void inverse(string &commandLine, vector<matrixS> &matrixV)
 
 			switch (matrixV[k].data_type)
 			{
-				case 1:
+			case 1:
+			{
+				for (int i = 0; i < matrixV[k].size; i++)
 				{
-					for (int i = 0; i < matrixV[k].size; i++)
+					for (int j = 0; j < matrixV[k].size; j++)
 					{
-						for (int j = 0; j < matrixV[k].size; j++)
-						{
-							temp_matrix.mat_n[i][j] = matrixV[k].mat_n[j][i];
-						}
+						temp_matrix.mat_n[i][j] = matrixV[k].mat_n[j][i];
 					}
 				}
-				break;
-				case 2:
+			}
+			break;
+			case 2:
+			{
+				for (int i = 0; i < matrixV[k].size; i++)
 				{
-					for (int i = 0; i < matrixV[k].size; i++)
+					for (int j = 0; j < matrixV[k].size; j++)
 					{
-						for (int j = 0; j < matrixV[k].size; j++)
-						{
-							temp_matrix.mat_c[i][j] = matrixV[k].mat_c[j][i];
-						}
+						temp_matrix.mat_c[i][j] = matrixV[k].mat_c[j][i];
 					}
 				}
-				break;
-				case 3:
+			}
+			break;
+			case 3:
+			{
+				for (int i = 0; i < matrixV[k].size; i++)
 				{
-					for (int i = 0; i < matrixV[k].size; i++)
+					for (int j = 0; j < matrixV[k].size; j++)
 					{
-						for (int j = 0; j < matrixV[k].size; j++)
-						{
-							temp_matrix.mat_s[i][j] = matrixV[k].mat_s[j][i];
-						}
+						temp_matrix.mat_s[i][j] = matrixV[k].mat_s[j][i];
 					}
 				}
-				break;
+			}
+			break;
 			}
 
 			string second_name = split_command(commandLine);
@@ -613,6 +613,95 @@ void delete_matrix(string &commandLine, vector<matrixS> &matrixV)
 	if (!found)
 	{
 		cout << "matrix with name(" << name << ") doesn\'t exist!!!" << endl;
+	}
+}
+
+void change_matrix(string &commandLine, vector<matrixS> &matrixV)
+{
+	string name = split_command(commandLine);
+	bool found = false;
+
+	for (int i = 0; i < matrixV.size(); i++)
+	{
+		if (name == matrixV[i].name)
+		{
+			string temp = split_command(commandLine);
+			if (!is_number(temp))
+			{
+				cout << "invalid input!!!" << endl;
+				return;
+			}
+			int row = stoi(temp);
+
+			temp = split_command(commandLine);
+			if (!is_number(temp))
+			{
+				cout << "invalid input!!!" << endl;
+				return;
+			}
+			int col = stoi(temp);
+
+			if (row >= matrixV[i].row || col >= matrixV[i].col || row < 0 || col < 0)
+			{
+				cout << "invalid input for row/col !!!" << endl;
+				return;
+			}
+			temp = split_command(commandLine);
+			if (temp == "")
+			{
+				cout << "invalid input to change!!!" << endl;
+				return;
+			}
+			switch (matrixV[i].data_type)
+			{
+			case 1:
+			{
+				if (is_number(temp))
+				{
+					matrixV[i].mat_n[row][col] = stof(temp);
+				}
+				else
+				{
+					cout << "the data type dosent match!!!" << endl;
+					return;
+				}
+			}
+			break;
+			case 2:
+			{
+				if (isalpha(temp[0]) && temp.size() == 1)
+				{
+					matrixV[i].mat_c[row][col] = temp[0];
+				}
+				else
+				{
+					cout << "the data type dosent match!!!" << endl;
+					return;
+				}
+			}
+			break;
+			case 3:
+			{
+				if (!is_number(temp))
+				{
+					matrixV[i].mat_s[row][col] = temp;
+				}
+				else
+				{
+					cout << "the data type dosent match!!!" << endl;
+					return;
+				}
+			}
+			}
+
+			found = true;
+			break;
+		}
+	}
+
+	if (!found)
+	{
+		cout << "matrix with name(" << name << ") dosen\'t exist!!!" << endl;
 	}
 }
 
