@@ -95,6 +95,38 @@ void new_matrix(matrixS &matrix)
 	}
 }
 
+void free_matrix(matrixS &matrix)
+{
+	switch (matrix.data_type)
+	{
+	case 1:
+	{
+		for (int i = 0; i < matrix.row; i++)
+		{
+			delete[] matrix.mat_n[i];
+		}
+		delete[] matrix.mat_n;
+		break;
+	}
+	case 2:
+	{
+		for (int i = 0; i < matrix.row; i++)
+		{
+			delete[] matrix.mat_c[i];
+		}
+		delete[] matrix.mat_c;
+	}
+	case 3:
+	{
+		for (int i = 0; i < matrix.row; i++)
+		{
+			delete[] matrix.mat_s[i];
+		}
+		delete[] matrix.mat_s;
+	}
+	}
+}
+
 void add_matrix(string &commandsLine, vector<matrixS> &matrixV)
 {
 	matrixS temp_matrix;
@@ -484,6 +516,81 @@ void show_matrix(string commandLine, vector<matrixS> matrixV)
 	}
 }
 
+void inverse(string &commandLine, vector<matrixS> &matrixV)
+{
+	string first_name = split_command(commandLine);
+	if (first_name == "")
+	{
+		cout << "Invalid name for matrix" << endl;
+		return;
+	}
+
+	bool found = false;
+	for (int k = 0; k < matrixV.size(); k++)
+	{
+		if (matrixV[k].name == first_name)
+		{
+			found = true;
+			matrixS temp_matrix(matrixV[k]);
+			new_matrix(temp_matrix);
+
+			switch (matrixV[k].data_type)
+			{
+				case 1:
+				{
+					for (int i = 0; i < matrixV[k].size; i++)
+					{
+						for (int j = 0; j < matrixV[k].size; j++)
+						{
+							temp_matrix.mat_n[i][j] = matrixV[k].mat_n[j][i];
+						}
+					}
+				}
+				break;
+				case 2:
+				{
+					for (int i = 0; i < matrixV[k].size; i++)
+					{
+						for (int j = 0; j < matrixV[k].size; j++)
+						{
+							temp_matrix.mat_c[i][j] = matrixV[k].mat_c[j][i];
+						}
+					}
+				}
+				break;
+				case 3:
+				{
+					for (int i = 0; i < matrixV[k].size; i++)
+					{
+						for (int j = 0; j < matrixV[k].size; j++)
+						{
+							temp_matrix.mat_s[i][j] = matrixV[k].mat_s[j][i];
+						}
+					}
+				}
+				break;
+			}
+
+			string second_name = split_command(commandLine);
+			if (second_name != "")
+			{
+				temp_matrix.name = second_name;
+				matrixV.push_back(temp_matrix);
+			}
+			else
+			{
+				free_matrix(matrixV[k]);
+				matrixV[k] = temp_matrix;
+			}
+		}
+	}
+
+	if (!found)
+	{
+		cout << "matrix with name(" << first_name << ") dosen\'t exist!!!" << endl;
+	}
+}
+
 void menu(vector<matrixS> &matrixV)
 {
 	string command_line = " ";					   //string that keeps the command line
@@ -515,9 +622,9 @@ void menu(vector<matrixS> &matrixV)
 		{
 			show_matrix(command_line, matrixV);
 		}
-		else if(command == "is_diagonal")
+		else if (command == "inverse")
 		{
-			
+			inverse(command_line, matrixV);
 		}
 	}
 
