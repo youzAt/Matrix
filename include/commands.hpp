@@ -197,6 +197,7 @@ void add_matrix(string &commandsLine, vector<matrixS> &matrixV)
 	}
 	else if (temp_string[0] == '[')
 	{
+		temp_matrix.col = temp_matrix.size = temp_matrix.row;
 		int char_no;
 		for (char_no = 1; temp_string[char_no] != ','; char_no++)
 		{
@@ -216,6 +217,13 @@ void add_matrix(string &commandsLine, vector<matrixS> &matrixV)
 					{
 						continue;
 					}
+					element = "";
+
+					for (++char_no; temp_string[char_no] != ',' && temp_string[char_no] != ']'; char_no++)
+					{
+						element += temp_string[char_no];
+					}
+					temp_matrix.mat_n[i][j] = stof(element);
 				}
 			}
 		}
@@ -232,6 +240,13 @@ void add_matrix(string &commandsLine, vector<matrixS> &matrixV)
 					{
 						continue;
 					}
+					element = "";
+
+					for (++char_no; temp_string[char_no] != ',' && temp_string[char_no] != ']'; char_no++)
+					{
+						element += temp_string[char_no];
+					}
+					temp_matrix.mat_c[i][j] = element[0];
 				}
 			}
 		}
@@ -248,9 +263,185 @@ void add_matrix(string &commandsLine, vector<matrixS> &matrixV)
 					{
 						continue;
 					}
+					element = "";
+
+					for (++char_no; temp_string[char_no] != ',' && temp_string[char_no] != ']'; char_no++)
+					{
+						element += temp_string[char_no];
+					}
+					temp_matrix.mat_s[i][j] = element;
 				}
 			}
 		}
+		if (temp_string[char_no] != ']')
+		{
+			cout << "Invalid number of elements" << endl;
+		}
+	}
+	else if (is_number(temp_string))
+	{
+		temp_matrix.col = stoi(temp_string);
+		if (temp_matrix.col <= 0)
+		{
+			cout << "the number of rows/columns should be a positive number!!!" << endl;
+			return;
+		}
+		temp_string = split_command(commandsLine);
+		if (temp_string == "")
+		{
+			cout << temp_matrix.name << "[1][1]: ";
+			cin >> element;
+			if (element == "")
+			{
+				cout << "Invalid input!!!" << endl;
+				return;
+			}
+			if (isdigit(element[0]))
+			{
+				temp_matrix.data_type = 1;
+				new_matrix(temp_matrix);
+				temp_matrix.mat_n[0][0] = stof(element);
+				for (int i = 0; i < temp_matrix.row; i++)
+				{
+					for (int j = 0; j < temp_matrix.col; j++)
+					{
+						if (i == 0 && j == 0)
+						{
+							continue;
+						}
+						cout << temp_matrix.name << '[' << i + 1 << "][" << j + 1 << "]: ";
+						cin >> temp_matrix.mat_n[i][j];
+					}
+				}
+			}
+			else if (isalpha(element[0]) && element.size() == 1)
+			{
+				temp_matrix.data_type = 2;
+				new_matrix(temp_matrix);
+				temp_matrix.mat_c[0][0] = element[0];
+				for (int i = 0; i < temp_matrix.row; i++)
+				{
+					for (int j = 0; j < temp_matrix.col; j++)
+					{
+						if (i == 0 && j == 0)
+						{
+							continue;
+						}
+						cout << temp_matrix.name << '[' << i + 1 << "][" << j + 1 << "]: ";
+						cin >> temp_matrix.mat_c[i][j];
+					}
+				}
+			}
+			else
+			{
+				temp_matrix.data_type = 3;
+				new_matrix(temp_matrix);
+				temp_matrix.mat_s[0][0] = element;
+				for (int i = 0; i < temp_matrix.row; i++)
+				{
+					for (int j = 0; j < temp_matrix.col; j++)
+					{
+						if (i == 0 && j == 0)
+						{
+							continue;
+						}
+						cout << temp_matrix.name << '[' << i + 1 << "][" << j + 1 << "]: ";
+						cin >> temp_matrix.mat_s[i][j];
+					}
+				}
+			}
+		}
+		else if (temp_string[0] == '[')
+		{
+
+			int char_no;
+			for (char_no = 1; temp_string[char_no] != ','; char_no++)
+			{
+				element += temp_string[char_no];
+			}
+
+			if (isdigit(element[0]))
+			{
+				temp_matrix.data_type = 1;
+				new_matrix(temp_matrix);
+				temp_matrix.mat_n[0][0] = stof(element);
+				for (int i = 0; i < temp_matrix.row; i++)
+				{
+					for (int j = 0; j < temp_matrix.col; j++)
+					{
+						if (i == 0 && j == 0)
+						{
+							continue;
+						}
+						element = "";
+
+						for (++char_no; temp_string[char_no] != ',' && temp_string[char_no] != ']'; char_no++)
+						{
+							element += temp_string[char_no];
+						}
+						temp_matrix.mat_n[i][j] = stof(element);
+					}
+				}
+			}
+			else if (isalpha(element[0]) && element.size() == 1)
+			{
+				temp_matrix.data_type = 2;
+				new_matrix(temp_matrix);
+				temp_matrix.mat_c[0][0] = element[0];
+				for (int i = 0; i < temp_matrix.row; i++)
+				{
+					for (int j = 0; j < temp_matrix.col; j++)
+					{
+						if (i == 0 && j == 0)
+						{
+							continue;
+						}
+						element = "";
+
+						for (++char_no; temp_string[char_no] != ',' && temp_string[char_no] != ']'; char_no++)
+						{
+							element += temp_string[char_no];
+						}
+						temp_matrix.mat_c[i][j] = element[0];
+					}
+				}
+			}
+			else
+			{
+				temp_matrix.data_type = 3;
+				new_matrix(temp_matrix);
+				temp_matrix.mat_s[0][0] = element;
+				for (int i = 0; i < temp_matrix.row; i++)
+				{
+					for (int j = 0; j < temp_matrix.col; j++)
+					{
+						if (i == 0 && j == 0)
+						{
+							continue;
+						}
+						element = "";
+
+						for (++char_no; temp_string[char_no] != ',' && temp_string[char_no] != ']'; char_no++)
+						{
+							element += temp_string[char_no];
+						}
+						temp_matrix.mat_s[i][j] = element;
+					}
+				}
+			}
+			if (temp_string[char_no] != ']')
+			{
+				cout << "Invalid number of elements" << endl;
+			}
+		}
+		else
+		{
+			cout << "Invalid input!!!" << endl;
+		}
+	}
+	else
+	{
+		cout << "Invalid input!!!" << endl;
 	}
 
 	matrixV.push_back(temp_matrix);
@@ -323,6 +514,10 @@ void menu(vector<matrixS> &matrixV)
 		else if (command == "show")
 		{
 			show_matrix(command_line, matrixV);
+		}
+		else if(command == "is_diagonal")
+		{
+			
 		}
 	}
 
