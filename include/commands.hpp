@@ -5,6 +5,7 @@
 #include <vector>
 using namespace std;
 
+//function thas prints all the available commands
 void show_commands()
 {
 	cout << "--------------------------------------" << endl;
@@ -25,6 +26,7 @@ void show_commands()
 	cout << "--------------------------------------" << endl;
 }
 
+//function that split command line and seprats it by " " and return the first part
 string split_command(string &commandLine)
 {
 	string command = "";
@@ -35,7 +37,7 @@ string split_command(string &commandLine)
 		{
 			if (commandLine[i] == ' ')
 			{
-				commandLine = commandLine.substr(i + 1);
+				commandLine = commandLine.substr(i + 1); // set rest of the commandline to itself
 				break;
 			}
 			else
@@ -44,13 +46,14 @@ string split_command(string &commandLine)
 			}
 		}
 		temp = command;
-		return command;
+		return command; //return the first part of command line
 	}
 	commandLine = "";
 	command = "";
-	return command;
+	return command; //return " " if the commandline is empty
 }
 
+//function that checks if a string contains only numbers character
 bool is_number(const string &str)
 {
 	for (const auto &item : str)
@@ -63,11 +66,12 @@ bool is_number(const string &str)
 	return true;
 }
 
+//function that gets a matrix and allocate memory for matrix elements based on data type and row/col
 void new_matrix(matrixS &matrix)
 {
 	switch (matrix.data_type)
 	{
-	case 1:
+	case 1: //numbers
 	{
 		matrix.mat_n = new float *[matrix.row];
 		for (int i = 0; i < matrix.row; i++)
@@ -76,7 +80,7 @@ void new_matrix(matrixS &matrix)
 		}
 		break;
 	}
-	case 2:
+	case 2: //characters
 	{
 		matrix.mat_c = new char *[matrix.row];
 		for (int i = 0; i < matrix.row; i++)
@@ -84,7 +88,7 @@ void new_matrix(matrixS &matrix)
 			matrix.mat_c[i] = new char[matrix.col];
 		}
 	}
-	case 3:
+	case 3: //strings
 	{
 		matrix.mat_s = new string *[matrix.row];
 		for (int i = 0; i < matrix.row; i++)
@@ -95,11 +99,12 @@ void new_matrix(matrixS &matrix)
 	}
 }
 
+//function that gets a matrix and free the allocated memory for matrix
 void free_matrix(matrixS &matrix)
 {
 	switch (matrix.data_type)
 	{
-	case 1:
+	case 1: //numbers
 	{
 		for (int i = 0; i < matrix.row; i++)
 		{
@@ -108,7 +113,7 @@ void free_matrix(matrixS &matrix)
 		delete[] matrix.mat_n;
 		break;
 	}
-	case 2:
+	case 2: //characters
 	{
 		for (int i = 0; i < matrix.row; i++)
 		{
@@ -116,7 +121,7 @@ void free_matrix(matrixS &matrix)
 		}
 		delete[] matrix.mat_c;
 	}
-	case 3:
+	case 3: //string
 	{
 		for (int i = 0; i < matrix.row; i++)
 		{
@@ -127,18 +132,21 @@ void free_matrix(matrixS &matrix)
 	}
 }
 
+// function that recieve information and add a matrix to the main vector
 void add_matrix(string &commandsLine, vector<matrixS> &matrixV)
 {
-	matrixS temp_matrix;
-	string temp_string;
-	string element = "";
-	temp_string = split_command(commandsLine);
-	if (temp_string == "")
+	matrixS temp_matrix; //a temporary matrix to keep matrix information
+	string temp_string;	 // a temporary string to revieve information
+	string element = ""; //string for matrix element
+
+	temp_string = split_command(commandsLine); // get the name of matrix
+	if (temp_string == "")					   // validation the name
 	{
 		cout << "Too few arguments!!!" << endl;
 		return;
 	}
-	for (const auto &item : matrixV)
+
+	for (const auto &item : matrixV) //check if its repetitious
 	{
 		if (item.name == temp_string)
 		{
@@ -146,35 +154,36 @@ void add_matrix(string &commandsLine, vector<matrixS> &matrixV)
 			return;
 		}
 	}
-	temp_matrix.name = temp_string;
+	temp_matrix.name = temp_string; //set the name of matrix
 
-	temp_string = split_command(commandsLine);
-	if (!is_number(temp_string) || temp_string == "")
+	temp_string = split_command(commandsLine);		  //get the row number of matrix
+	if (!is_number(temp_string) || temp_string == "") //validation the input for row number
 	{
 		cout << "Invalid/No arguments for matrix rows/columns!!!" << endl;
 		return;
 	}
-	temp_matrix.row = stoi(temp_string);
-	if (temp_matrix.row <= 0)
+	temp_matrix.row = stoi(temp_string); //set the row number
+
+	if (temp_matrix.row <= 0) //validation the row number
 	{
 		cout << "the number of rows/columns should be a positive number!!!" << endl;
 		return;
 	}
 
-	temp_string = split_command(commandsLine);
-	if (temp_string == "")
+	temp_string = split_command(commandsLine); // get the third part of information
+	if (temp_string == "")					   // should recive square matrix element by element
 	{
-		temp_matrix.col = temp_matrix.size = temp_matrix.row;
+		temp_matrix.col = temp_matrix.size = temp_matrix.row; //set size and col
 		cout << temp_matrix.name << "[0][0]: ";
 		cin >> element;
-		if (element == "")
+		if (element == "") // validation the input
 		{
 			cout << "Invalid input!!!" << endl;
 			return;
 		}
-		if (isdigit(element[0]))
+		if (isdigit(element[0])) // check if data type is number and get the elements
 		{
-			temp_matrix.data_type = 1;
+			temp_matrix.data_type = 1; //set data type to number
 			new_matrix(temp_matrix);
 			temp_matrix.mat_n[0][0] = stof(element);
 			for (int i = 0; i < temp_matrix.row; i++)
@@ -190,9 +199,9 @@ void add_matrix(string &commandsLine, vector<matrixS> &matrixV)
 				}
 			}
 		}
-		else if (isalpha(element[0]) && element.size() == 1)
+		else if (isalpha(element[0]) && element.size() == 1)// check if data type is character and get the elements
 		{
-			temp_matrix.data_type = 2;
+			temp_matrix.data_type = 2; // set data type to character
 			new_matrix(temp_matrix);
 			temp_matrix.mat_c[0][0] = element[0];
 			for (int i = 0; i < temp_matrix.row; i++)
@@ -208,9 +217,9 @@ void add_matrix(string &commandsLine, vector<matrixS> &matrixV)
 				}
 			}
 		}
-		else
+		else //data type is string and get the elements
 		{
-			temp_matrix.data_type = 3;
+			temp_matrix.data_type = 3; // set data type to string
 			new_matrix(temp_matrix);
 			temp_matrix.mat_s[0][0] = element;
 			for (int i = 0; i < temp_matrix.row; i++)
@@ -227,16 +236,16 @@ void add_matrix(string &commandsLine, vector<matrixS> &matrixV)
 			}
 		}
 	}
-	else if (temp_string[0] == '[')
+	else if (temp_string[0] == '[') //should recive square matrix element in command line
 	{
-		temp_matrix.col = temp_matrix.size = temp_matrix.row;
+		temp_matrix.col = temp_matrix.size = temp_matrix.row; //set col and size
 		int char_no;
 		for (char_no = 1; temp_string[char_no] != ','; char_no++)
 		{
 			element += temp_string[char_no];
 		}
 
-		if (isdigit(element[0]))
+		if (isdigit(element[0])) // check if data type is number and get the elements
 		{
 			temp_matrix.data_type = 1;
 			new_matrix(temp_matrix);
@@ -259,7 +268,7 @@ void add_matrix(string &commandsLine, vector<matrixS> &matrixV)
 				}
 			}
 		}
-		else if (isalpha(element[0]) && element.size() == 1)
+		else if (isalpha(element[0]) && element.size() == 1)// check if data type is character and get the elements
 		{
 			temp_matrix.data_type = 2;
 			new_matrix(temp_matrix);
@@ -282,7 +291,7 @@ void add_matrix(string &commandsLine, vector<matrixS> &matrixV)
 				}
 			}
 		}
-		else
+		else //data type is string and get the elements
 		{
 			temp_matrix.data_type = 3;
 			new_matrix(temp_matrix);
@@ -305,21 +314,22 @@ void add_matrix(string &commandsLine, vector<matrixS> &matrixV)
 				}
 			}
 		}
-		if (temp_string[char_no] != ']')
+		if (temp_string[char_no] != ']') //validation the number of elements
 		{
 			cout << "Invalid number of elements" << endl;
 		}
 	}
-	else if (is_number(temp_string))
+	else if (is_number(temp_string)) //should recive a matrix by row and col
 	{
-		temp_matrix.col = stoi(temp_string);
+		temp_matrix.col = stoi(temp_string); //validation col number
 		if (temp_matrix.col <= 0)
 		{
 			cout << "the number of rows/columns should be a positive number!!!" << endl;
 			return;
 		}
+
 		temp_string = split_command(commandsLine);
-		if (temp_string == "")
+		if (temp_string == "") // should recive matrix element by element
 		{
 			cout << temp_matrix.name << "[0][0]: ";
 			cin >> element;
@@ -383,7 +393,7 @@ void add_matrix(string &commandsLine, vector<matrixS> &matrixV)
 				}
 			}
 		}
-		else if (temp_string[0] == '[')
+		else if (temp_string[0] == '[') //should recive a matrix by row and col
 		{
 
 			int char_no;
@@ -392,7 +402,7 @@ void add_matrix(string &commandsLine, vector<matrixS> &matrixV)
 				element += temp_string[char_no];
 			}
 
-			if (isdigit(element[0]))
+			if (isdigit(element[0])) // data type is number
 			{
 				temp_matrix.data_type = 1;
 				new_matrix(temp_matrix);
@@ -415,7 +425,7 @@ void add_matrix(string &commandsLine, vector<matrixS> &matrixV)
 					}
 				}
 			}
-			else if (isalpha(element[0]) && element.size() == 1)
+			else if (isalpha(element[0]) && element.size() == 1) //data type is character
 			{
 				temp_matrix.data_type = 2;
 				new_matrix(temp_matrix);
@@ -438,7 +448,7 @@ void add_matrix(string &commandsLine, vector<matrixS> &matrixV)
 					}
 				}
 			}
-			else
+			else //data type is string
 			{
 				temp_matrix.data_type = 3;
 				new_matrix(temp_matrix);
@@ -461,24 +471,25 @@ void add_matrix(string &commandsLine, vector<matrixS> &matrixV)
 					}
 				}
 			}
-			if (temp_string[char_no] != ']')
+			if (temp_string[char_no] != ']') //validation the number of elements
 			{
 				cout << "Invalid number of elements" << endl;
 			}
 		}
-		else
+		else //validation the input
 		{
 			cout << "Invalid input!!!" << endl;
 		}
 	}
-	else
+	else //validation the input
 	{
 		cout << "Invalid input!!!" << endl;
 	}
 
-	matrixV.push_back(temp_matrix);
+	matrixV.push_back(temp_matrix); // add temp_matrix to the main vector
 }
 
+// function that gets a matrix name and prints the matrix if the name is valid
 void show_matrix(string commandLine, vector<matrixS> matrixV)
 {
 	bool found = false;
@@ -510,12 +521,13 @@ void show_matrix(string commandLine, vector<matrixS> matrixV)
 		}
 	}
 
-	if (!found)
+	if (!found) // validation the name of matrix
 	{
 		cout << "matrix with this name(" << commandLine << ") dosen\'t exist!!" << endl;
 	}
 }
 
+// funtion that inverses a matrix
 void inverse(string &commandLine, vector<matrixS> &matrixV)
 {
 	string first_name = split_command(commandLine);
@@ -597,6 +609,7 @@ void inverse(string &commandLine, vector<matrixS> &matrixV)
 	}
 }
 
+//function that delete a matrix from main vector
 void delete_matrix(string &commandLine, vector<matrixS> &matrixV)
 {
 	bool found = false;
@@ -621,6 +634,7 @@ void delete_matrix(string &commandLine, vector<matrixS> &matrixV)
 	}
 }
 
+// function that change an element of a matrix
 void change_matrix(string &commandLine, vector<matrixS> &matrixV)
 {
 	string name = split_command(commandLine);
@@ -710,6 +724,7 @@ void change_matrix(string &commandLine, vector<matrixS> &matrixV)
 	}
 }
 
+// function that cheks if a matrix is availabe
 int is_available(const string &name, const vector<matrixS> &matrixV)
 {
 	for (int i = 0; i < matrixV.size(); i++)
@@ -722,6 +737,7 @@ int is_available(const string &name, const vector<matrixS> &matrixV)
 	return -1;
 }
 
+//function that will recive command line and calls the proper function
 void menu(vector<matrixS> &matrixV)
 {
 	string command_line = " ";

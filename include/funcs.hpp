@@ -1,23 +1,23 @@
 #ifndef FUNCS_HPP
 #define FUNCS_HPP
-#include<iostream>
-#include "matrix_struct.hpp"
+#include <iostream>
+#include "matrix_struct.hpp" //include header that has matrix defenition
 using namespace std;
-
 
 //function that checks if a matrix is diagonal
 bool is_diagonal(matrixS matrix)
 {
+	//check that matrix is square
 	if (matrix.size == 0)
 	{
 		cout << "the matrix should be square matrix!!!" << endl;
 		return false;
 	}
-	bool diagonal = true;
-	switch (matrix.data_type)
+
+	bool diagonal = true;	  // bool data type that keeps the resault (default is true)
+	switch (matrix.data_type) //checks if a matrix is diagonal based on data type
 	{
-	// numbers(special number : 0)
-	case 1:
+	case 1: // numbers(special number : 0)
 	{
 		for (int i = 0; i < matrix.size && diagonal; i++)
 		{
@@ -25,15 +25,14 @@ bool is_diagonal(matrixS matrix)
 			{
 				if (i != j && matrix.mat_n[i][j] != 0)
 				{
-					diagonal = false;
+					diagonal = false; //set diagonal to false is find a none-zero element (not on the main diameter)
 					break;
 				}
 			}
 		}
 	}
 	break;
-	// char(special char : o)
-	case 2:
+	case 2: // char(special char : o)
 	{
 		for (int i = 0; i < matrix.size && diagonal; i++)
 		{
@@ -41,15 +40,14 @@ bool is_diagonal(matrixS matrix)
 			{
 				if (i != j && matrix.mat_c[i][j] != 'o')
 				{
-					diagonal = false;
+					diagonal = false; //set diagonal to false is find a none-'o' element (not on the main diameter)
 					break;
 				}
 			}
 		}
 	}
 	break;
-	//string(special string: ooo)
-	case 3:
+	case 3: //string(special string: ooo)
 	{
 		for (int i = 0; i < matrix.size && diagonal; i++)
 		{
@@ -57,7 +55,7 @@ bool is_diagonal(matrixS matrix)
 			{
 				if (i != j && matrix.mat_s[i][j] != "ooo")
 				{
-					diagonal = false;
+					diagonal = false; //set diagonal to false is find a none-"ooo" element (not on the main diameter)
 					break;
 				}
 			}
@@ -71,16 +69,17 @@ bool is_diagonal(matrixS matrix)
 //function that checks if a matrix is upper triangular
 bool is_upper_triangular(matrixS matrix)
 {
+	//check that matrix is square
 	if (matrix.size == 0)
 	{
 		cout << "the matrix should be square matrix!!!" << endl;
 		return false;
 	}
-	bool upper_triangular = true;
 
-	switch (matrix.data_type)
+	bool upper_triangular = true; // bool data type that keeps the resault (default is true)
+	switch (matrix.data_type)	  //checks if a matrix is upper triangular based on data type
 	{
-	case 1:
+	case 1: // numbers(special number : 0)
 	{
 		for (int i = 0; i < matrix.size && upper_triangular; i++)
 		{
@@ -88,14 +87,14 @@ bool is_upper_triangular(matrixS matrix)
 			{
 				if (i > j && matrix.mat_n[i][j] != 0)
 				{
-					upper_triangular = false;
+					upper_triangular = false; //set upper triangular to false if find a none-zero element under the main diameter
 					break;
 				}
 			}
 		}
 	}
 	break;
-	case 2:
+	case 2: // char(special char : o)
 	{
 		for (int i = 0; i < matrix.size && upper_triangular; i++)
 		{
@@ -103,14 +102,14 @@ bool is_upper_triangular(matrixS matrix)
 			{
 				if (i > j && matrix.mat_c[i][j] != 'o')
 				{
-					upper_triangular = false;
+					upper_triangular = false; //set upper triangular to false if find a none-'o' element under the main diameter
 					break;
 				}
 			}
 		}
 	}
 	break;
-	case 3:
+	case 3: //string(special string: ooo)
 	{
 		for (int i = 0; i < matrix.size && upper_triangular; i++)
 		{
@@ -118,7 +117,7 @@ bool is_upper_triangular(matrixS matrix)
 			{
 				if (i > j && matrix.mat_s[i][j] != "ooo")
 				{
-					upper_triangular = false;
+					upper_triangular = false; //set upper triangular to false if find a none-"ooo" element under the main diameter
 					break;
 				}
 			}
@@ -126,22 +125,23 @@ bool is_upper_triangular(matrixS matrix)
 	}
 	break;
 	}
-	return upper_triangular;
+	return upper_triangular; //return the resault
 }
 
 //function that checks if a matrix is lower triangular
 bool is_lower_triangular(matrixS matrix)
 {
+	//check that matrix is square
 	if (matrix.size == 0)
 	{
 		cout << "the matrix should be square matrix!!!" << endl;
 		return false;
 	}
-	bool lower_triangular = true;
 
-	switch (matrix.data_type)
+	bool lower_triangular = true; // bool data type that keeps the resault (default is true)
+	switch (matrix.data_type)	  //checks if a matrix is lower triangular based on data type
 	{
-	case 1:
+	case 1: // numbers(special number : 0)
 	{
 		for (int i = 0; i < matrix.size && lower_triangular; i++)
 		{
@@ -149,14 +149,14 @@ bool is_lower_triangular(matrixS matrix)
 			{
 				if (i < j && matrix.mat_n[i][j] != 0)
 				{
-					lower_triangular = false;
+					lower_triangular = false; //set lower triangular to false if find a none-zero element under the main diameter
 					break;
 				}
 			}
 		}
 	}
 	break;
-	case 2:
+	case 2: // char(special char : o)
 	{
 		for (int i = 0; i < matrix.size && lower_triangular; i++)
 		{
@@ -164,14 +164,14 @@ bool is_lower_triangular(matrixS matrix)
 			{
 				if (i < j && matrix.mat_c[i][j] != 'o')
 				{
-					lower_triangular = false;
+					lower_triangular = false; //set lower triangular to false if find a none-'o' element under the main diameter
 					break;
 				}
 			}
 		}
 	}
 	break;
-	case 3:
+	case 3: //string(special string: ooo)
 	{
 		for (int i = 0; i < matrix.size && lower_triangular; i++)
 		{
@@ -179,7 +179,7 @@ bool is_lower_triangular(matrixS matrix)
 			{
 				if (i < j && matrix.mat_s[i][j] != "ooo")
 				{
-					lower_triangular = false;
+					lower_triangular = false; //set lower triangular to false if find a none-"ooo" element under the main diameter
 					break;
 				}
 			}
@@ -187,19 +187,21 @@ bool is_lower_triangular(matrixS matrix)
 	}
 	break;
 	}
-	return lower_triangular;
+	return lower_triangular; //return the resault
 }
 
 //function that checks if a matrix is lower triangular or upper triangular or both or none
 int is_triangular(matrixS matrix)
 {
+	//check that matrix is square
 	if (matrix.size == 0)
 	{
 		cout << "the matrix should be square matrix!!!" << endl;
 		return 0;
 	}
-	bool upper = is_upper_triangular(matrix);
-	bool lower = is_lower_triangular(matrix);
+
+	bool upper = is_upper_triangular(matrix); // check if matrix is upper triangular
+	bool lower = is_lower_triangular(matrix); // check if matrix is lower triangular
 
 	if (!upper && !lower)
 	{
@@ -222,47 +224,49 @@ int is_triangular(matrixS matrix)
 //function that checks if a matrix is identity
 bool is_identity(matrixS matrix)
 {
+	//check that matrix is square
 	if (matrix.size == 0)
 	{
 		cout << "the matrix should be square matrix!!!" << endl;
 		return false;
 	}
-	bool identity = true;
-	if (is_diagonal(matrix))
+
+	bool identity = true;	 // bool data type that keeps the resault (default is true)
+	if (is_diagonal(matrix)) // check if matrix is diagonal
 	{
-		switch (matrix.data_type)
+		switch (matrix.data_type) //checks if a matrix is identity based on data type
 		{
-		case 1:
+		case 1: // numbers (special number :1)
 		{
 			for (int i = 0; i < matrix.size; i++)
 			{
 				if (matrix.mat_n[i][i] != 1)
 				{
-					identity = false;
+					identity = false; //set identity to false if find a none-1 on main diameter
 					break;
 				}
 			}
 		}
 		break;
-		case 2:
+		case 2: // characters (special character : 'i')
 		{
 			for (int i = 0; i < matrix.size; i++)
 			{
 				if (matrix.mat_c[i][i] != 'i')
 				{
-					identity = false;
+					identity = false; //set identity to false if find a none-'i' on main diameter
 					break;
 				}
 			}
 		}
 		break;
-		case 3:
+		case 3: // strings (special string "iii")
 		{
 			for (int i = 0; i < matrix.size; i++)
 			{
 				if (matrix.mat_s[i][i] != "iii")
 				{
-					identity = false;
+					identity = false; //set identity to false if find a none-"iii" on main diameter
 					break;
 				}
 			}
@@ -272,25 +276,26 @@ bool is_identity(matrixS matrix)
 	}
 	else
 	{
-		identity = false;
+		identity = false; // set identity to false if matrix is not diagonal
 	}
 
-	return identity;
+	return identity; //return the resault
 }
 
 //function that checks if a matrix is normal symmetric
 bool is_normal_symmetric(matrixS matrix)
 {
+	//check that matrix is square
 	if (matrix.size == 0)
 	{
 		cout << "the matrix should be square matrix!!!" << endl;
 		return false;
 	}
-	bool normal_symmetric = true;
 
-	switch (matrix.data_type)
+	bool normal_symmetric = true; // bool data type that keeps the resault (default is true)
+	switch (matrix.data_type)	  //checks if a matrix is normal symmetric based on data type
 	{
-	case 1:
+	case 1: //numbers
 	{
 		for (int i = 0; i < matrix.size; i++)
 		{
@@ -305,7 +310,7 @@ bool is_normal_symmetric(matrixS matrix)
 		}
 	}
 	break;
-	case 2:
+	case 2: //characters
 	{
 		for (int i = 0; i < matrix.size; i++)
 		{
@@ -320,7 +325,7 @@ bool is_normal_symmetric(matrixS matrix)
 		}
 	}
 	break;
-	case 3:
+	case 3: //string
 	{
 		for (int i = 0; i < matrix.size; i++)
 		{
@@ -337,13 +342,13 @@ bool is_normal_symmetric(matrixS matrix)
 	break;
 	}
 
-	return normal_symmetric;
+	return normal_symmetric; //return the resault
 }
 
 //function that checks if two strings are reverse
 bool is_reverse(std::string str1, std::string str2)
 {
-	bool reverse = true;
+	bool reverse = true; // bool data type that keeps the resault (default is true)
 	if (str1.size() == str2.size())
 	{
 		int size = str1.size();
@@ -351,32 +356,33 @@ bool is_reverse(std::string str1, std::string str2)
 		{
 			if (str1[i] != str2[(size - 1) - i])
 			{
-				reverse = false;
+				reverse = false; //set revrse to false if the strings aren't reverse of each other
 				break;
 			}
 		}
 	}
 	else
 	{
-		reverse = false;
+		reverse = false; //set reverse to false if the two strings dont have equal sizes
 	}
 
-	return reverse;
+	return reverse; //return the resault
 }
 
 //function that checks if a matrix is skew symmetric
 bool is_skew_symmetric(matrixS matrix)
 {
+	//check that matrix is square
 	if (matrix.size == 0)
 	{
 		cout << "the matrix should be square matrix!!!" << endl;
 		return false;
 	}
-	bool skew_symmetric = true;
 
-	switch (matrix.data_type)
+	bool skew_symmetric = true; // bool data type that keeps the resault (default is true)
+	switch (matrix.data_type)	//checks if a matrix is skew symmetric based on data type
 	{
-	case 1:
+	case 1: //numbers
 	{
 		for (int i = 0; i < matrix.size; i++)
 		{
@@ -391,7 +397,7 @@ bool is_skew_symmetric(matrixS matrix)
 		}
 	}
 	break;
-	case 2:
+	case 2: //characters
 	{
 		for (int i = 0; i < matrix.size; i++)
 		{
@@ -420,7 +426,7 @@ bool is_skew_symmetric(matrixS matrix)
 		}
 	}
 	break;
-	case 3:
+	case 3: //strings
 	{
 		for (int i = 0; i < matrix.size; i++)
 		{
@@ -437,19 +443,21 @@ bool is_skew_symmetric(matrixS matrix)
 	break;
 	}
 
-	return skew_symmetric;
+	return skew_symmetric; //return the resault
 }
 
 //function that checks if a matrix is normal symmetric or skew symmetric or both or none
 int is_symmetric(matrixS matrix)
 {
+	//check that matrix is square
 	if (matrix.size == 0)
 	{
 		cout << "the matrix should be square matrix!!!" << endl;
 		return 0;
 	}
-	bool normal = is_normal_symmetric(matrix);
-	bool skew = is_skew_symmetric(matrix);
+
+	bool normal = is_normal_symmetric(matrix); //check if matrix is normal symmetric
+	bool skew = is_skew_symmetric(matrix);	   //check if matrix is skew symmetric
 
 	if (!normal && !skew)
 	{
