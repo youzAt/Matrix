@@ -530,6 +530,11 @@ void inverse(string &commandLine, vector<matrixS> &matrixV)
 	{
 		if (matrixV[k].name == first_name)
 		{
+			if (matrixV[k].size == 0)
+			{
+				cout << "matrix should be square!!!" << endl;
+				return;
+			}
 			found = true;
 			matrixS temp_matrix(matrixV[k]);
 			new_matrix(temp_matrix);
@@ -705,9 +710,22 @@ void change_matrix(string &commandLine, vector<matrixS> &matrixV)
 	}
 }
 
+int is_available(const string &name, const vector<matrixS> &matrixV)
+{
+	for (int i = 0; i < matrixV.size(); i++)
+	{
+		if (matrixV[i].name == name)
+		{
+			return i;
+		}
+	}
+	return -1;
+}
+
 void menu(vector<matrixS> &matrixV)
 {
-	string command_line = " ";					   //string that keeps the command line
+	string command_line = " ";
+	int index;									   //string that keeps the command line
 	cout << "Welcome To This Program!!! " << endl; //welcome message
 
 	while (command_line != "exit") //loop for getting command line or end the program with "exit" command
@@ -747,6 +765,164 @@ void menu(vector<matrixS> &matrixV)
 		else if (command == "change")
 		{
 			change_matrix(command_line, matrixV);
+		}
+		else if (command == "is_diagonal")
+		{
+			if (index = is_available(split_command(command_line), matrixV) == -1)
+			{
+				cout << "matrix with this name doesn\'t exist" << endl;
+			}
+			else
+			{
+				if (is_diagonal(matrixV[index]))
+				{
+					cout << "the matrix \"" << matrixV[index].name << "\" is diagonal" << endl;
+				}
+				else
+				{
+					cout << "the matrix \"" << matrixV[index].name << "\" is NOT diagonal!!" << endl;
+				}
+			}
+		}
+		else if (command == "is_upper_triangular")
+		{
+			if (index = is_available(split_command(command_line), matrixV) == -1)
+			{
+				cout << "matrix with this name doesn\'t exist" << endl;
+			}
+			else
+			{
+				if (is_upper_triangular(matrixV[index]))
+				{
+					cout << "the matrix \"" << matrixV[index].name << "\" is upper triangular" << endl;
+				}
+				else
+				{
+					cout << "the matrix \"" << matrixV[index].name << "\" is NOT upper triangular!!" << endl;
+				}
+			}
+		}
+		else if (command == "is_lower_triangular")
+		{
+			if (index = is_available(split_command(command_line), matrixV) == -1)
+			{
+				cout << "matrix with this name doesn\'t exist" << endl;
+			}
+			else
+			{
+				if (is_lower_triangular(matrixV[index]))
+				{
+					cout << "the matrix \"" << matrixV[index].name << "\" is lower triangular" << endl;
+				}
+				else
+				{
+					cout << "the matrix \"" << matrixV[index].name << "\" is NOT lower triangular!!" << endl;
+				}
+			}
+		}
+		else if (command == "is_triangular")
+		{
+			if (index = is_available(split_command(command_line), matrixV) == -1)
+			{
+				cout << "matrix with this name doesn\'t exist" << endl;
+			}
+			else
+			{
+				switch (is_triangular(matrixV[index]))
+				{
+				case 0:
+					cout << "the matrix \"" << matrixV[index].name << "\" is neither lower nor upper triangular" << endl;
+					break;
+				case 1:
+					cout << "the matrix \"" << matrixV[index].name << "\" is just upper triangular" << endl;
+					break;
+				case 2:
+					cout << "the matrix \"" << matrixV[index].name << "\" is just lower triangular" << endl;
+					break;
+				case 3:
+					cout << "the matrix \"" << matrixV[index].name << "\" is both upper and lower triangular" << endl;
+					break;
+				}
+			}
+		}
+		else if (command == "is_identity")
+		{
+			if (index = is_available(split_command(command_line), matrixV) == -1)
+			{
+				cout << "matrix with this name doesn\'t exist" << endl;
+			}
+			else
+			{
+				if (is_identity(matrixV[index]))
+				{
+					cout << "the matrix \"" << matrixV[index].name << "\" is identity" << endl;
+				}
+				else
+				{
+					cout << "the matrix \"" << matrixV[index].name << "\" is NOT identity!!" << endl;
+				}
+			}
+		}
+		else if (command == "is_normal_symmetric")
+		{
+			if (index = is_available(split_command(command_line), matrixV) == -1)
+			{
+				cout << "matrix with this name doesn\'t exist" << endl;
+			}
+			else
+			{
+				if (is_normal_symmetric(matrixV[index]))
+				{
+					cout << "the matrix \"" << matrixV[index].name << "\" is normal symmetric" << endl;
+				}
+				else
+				{
+					cout << "the matrix \"" << matrixV[index].name << "\" is NOT normal symmetric!!" << endl;
+				}
+			}
+		}
+		else if (command == "is_skew_symmetric")
+		{
+			if (index = is_available(split_command(command_line), matrixV) == -1)
+			{
+				cout << "matrix with this name doesn\'t exist" << endl;
+			}
+			else
+			{
+				if (is_skew_symmetric(matrixV[index]))
+				{
+					cout << "the matrix \"" << matrixV[index].name << "\" is skew symmetric" << endl;
+				}
+				else
+				{
+					cout << "the matrix \"" << matrixV[index].name << "\" is NOT skew symmetric!!" << endl;
+				}
+			}
+		}
+		else if (command == "is_symmetric")
+		{
+			if (index = is_available(split_command(command_line), matrixV) == -1)
+			{
+				cout << "matrix with this name doesn\'t exist" << endl;
+			}
+			else
+			{
+				switch (is_symmetric(matrixV[index]))
+				{
+				case 0:
+					cout << "the matrix \"" << matrixV[index].name << "\" is neither normal nor skew symmetric" << endl;
+					break;
+				case 1:
+					cout << "the matrix \"" << matrixV[index].name << "\" is just normal symmetric" << endl;
+					break;
+				case 2:
+					cout << "the matrix \"" << matrixV[index].name << "\" is just skew symmetric" << endl;
+					break;
+				case 3:
+					cout << "the matrix \"" << matrixV[index].name << "\" is both normal and skew symmetric" << endl;
+					break;
+				}
+			}
 		}
 	}
 

@@ -10,6 +10,5 @@ int main(int argc, char const *argv[])
 	vector<matrixS> matrixV;
 	menu(matrixV);
 
-
 	return 0;
 }
