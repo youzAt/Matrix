@@ -768,12 +768,14 @@ void menu(vector<matrixS> &matrixV)
 		}
 		else if (command == "is_diagonal")
 		{
-			if (index = is_available(split_command(command_line), matrixV) == -1)
+			index = is_available(split_command(command_line), matrixV);
+			if (index == -1)
 			{
 				cout << "matrix with this name doesn\'t exist" << endl;
 			}
 			else
 			{
+				cout << index << endl;
 				if (is_diagonal(matrixV[index]))
 				{
 					cout << "the matrix \"" << matrixV[index].name << "\" is diagonal" << endl;
@@ -786,7 +788,8 @@ void menu(vector<matrixS> &matrixV)
 		}
 		else if (command == "is_upper_triangular")
 		{
-			if (index = is_available(split_command(command_line), matrixV) == -1)
+			index = is_available(split_command(command_line), matrixV);
+			if (index == -1)
 			{
 				cout << "matrix with this name doesn\'t exist" << endl;
 			}
@@ -804,7 +807,8 @@ void menu(vector<matrixS> &matrixV)
 		}
 		else if (command == "is_lower_triangular")
 		{
-			if (index = is_available(split_command(command_line), matrixV) == -1)
+			index = is_available(split_command(command_line), matrixV);
+			if (index == -1)
 			{
 				cout << "matrix with this name doesn\'t exist" << endl;
 			}
@@ -822,7 +826,8 @@ void menu(vector<matrixS> &matrixV)
 		}
 		else if (command == "is_triangular")
 		{
-			if (index = is_available(split_command(command_line), matrixV) == -1)
+			index = is_available(split_command(command_line), matrixV);
+			if (index == -1)
 			{
 				cout << "matrix with this name doesn\'t exist" << endl;
 			}
@@ -847,7 +852,8 @@ void menu(vector<matrixS> &matrixV)
 		}
 		else if (command == "is_identity")
 		{
-			if (index = is_available(split_command(command_line), matrixV) == -1)
+			index = is_available(split_command(command_line), matrixV);
+			if (index == -1)
 			{
 				cout << "matrix with this name doesn\'t exist" << endl;
 			}
@@ -865,7 +871,8 @@ void menu(vector<matrixS> &matrixV)
 		}
 		else if (command == "is_normal_symmetric")
 		{
-			if (index = is_available(split_command(command_line), matrixV) == -1)
+			index = is_available(split_command(command_line), matrixV);
+			if (index == -1)
 			{
 				cout << "matrix with this name doesn\'t exist" << endl;
 			}
@@ -883,7 +890,8 @@ void menu(vector<matrixS> &matrixV)
 		}
 		else if (command == "is_skew_symmetric")
 		{
-			if (index = is_available(split_command(command_line), matrixV) == -1)
+			index = is_available(split_command(command_line), matrixV);
+			if (index == -1)
 			{
 				cout << "matrix with this name doesn\'t exist" << endl;
 			}
@@ -901,7 +909,8 @@ void menu(vector<matrixS> &matrixV)
 		}
 		else if (command == "is_symmetric")
 		{
-			if (index = is_available(split_command(command_line), matrixV) == -1)
+			index = is_available(split_command(command_line), matrixV);
+			if (index == -1)
 			{
 				cout << "matrix with this name doesn\'t exist" << endl;
 			}
@@ -923,6 +932,10 @@ void menu(vector<matrixS> &matrixV)
 					break;
 				}
 			}
+		}
+		else
+		{
+			cout << "invalid command!!!" << endl;
 		}
 	}
 

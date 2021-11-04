@@ -15,6 +15,8 @@ vector
 -
 
 ../include/funcs.hpp
+iostream
+-
 matrix_struct.hpp
 ../include/matrix_struct.hpp
 

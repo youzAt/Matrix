@@ -1,10 +1,18 @@
 #ifndef FUNCS_HPP
 #define FUNCS_HPP
+#include<iostream>
 #include "matrix_struct.hpp"
+using namespace std;
+
 
 //function that checks if a matrix is diagonal
 bool is_diagonal(matrixS matrix)
 {
+	if (matrix.size == 0)
+	{
+		cout << "the matrix should be square matrix!!!" << endl;
+		return false;
+	}
 	bool diagonal = true;
 	switch (matrix.data_type)
 	{
@@ -63,6 +71,11 @@ bool is_diagonal(matrixS matrix)
 //function that checks if a matrix is upper triangular
 bool is_upper_triangular(matrixS matrix)
 {
+	if (matrix.size == 0)
+	{
+		cout << "the matrix should be square matrix!!!" << endl;
+		return false;
+	}
 	bool upper_triangular = true;
 
 	switch (matrix.data_type)
@@ -119,6 +132,11 @@ bool is_upper_triangular(matrixS matrix)
 //function that checks if a matrix is lower triangular
 bool is_lower_triangular(matrixS matrix)
 {
+	if (matrix.size == 0)
+	{
+		cout << "the matrix should be square matrix!!!" << endl;
+		return false;
+	}
 	bool lower_triangular = true;
 
 	switch (matrix.data_type)
@@ -175,6 +193,11 @@ bool is_lower_triangular(matrixS matrix)
 //function that checks if a matrix is lower triangular or upper triangular or both or none
 int is_triangular(matrixS matrix)
 {
+	if (matrix.size == 0)
+	{
+		cout << "the matrix should be square matrix!!!" << endl;
+		return 0;
+	}
 	bool upper = is_upper_triangular(matrix);
 	bool lower = is_lower_triangular(matrix);
 
@@ -199,6 +222,11 @@ int is_triangular(matrixS matrix)
 //function that checks if a matrix is identity
 bool is_identity(matrixS matrix)
 {
+	if (matrix.size == 0)
+	{
+		cout << "the matrix should be square matrix!!!" << endl;
+		return false;
+	}
 	bool identity = true;
 	if (is_diagonal(matrix))
 	{
@@ -253,6 +281,11 @@ bool is_identity(matrixS matrix)
 //function that checks if a matrix is normal symmetric
 bool is_normal_symmetric(matrixS matrix)
 {
+	if (matrix.size == 0)
+	{
+		cout << "the matrix should be square matrix!!!" << endl;
+		return false;
+	}
 	bool normal_symmetric = true;
 
 	switch (matrix.data_type)
@@ -334,6 +367,11 @@ bool is_reverse(std::string str1, std::string str2)
 //function that checks if a matrix is skew symmetric
 bool is_skew_symmetric(matrixS matrix)
 {
+	if (matrix.size == 0)
+	{
+		cout << "the matrix should be square matrix!!!" << endl;
+		return false;
+	}
 	bool skew_symmetric = true;
 
 	switch (matrix.data_type)
@@ -405,6 +443,11 @@ bool is_skew_symmetric(matrixS matrix)
 //function that checks if a matrix is normal symmetric or skew symmetric or both or none
 int is_symmetric(matrixS matrix)
 {
+	if (matrix.size == 0)
+	{
+		cout << "the matrix should be square matrix!!!" << endl;
+		return 0;
+	}
 	bool normal = is_normal_symmetric(matrix);
 	bool skew = is_skew_symmetric(matrix);
 
